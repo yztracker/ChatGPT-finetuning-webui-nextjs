@@ -10,18 +10,18 @@ This platform is built for users who need a comprehensive environment to handle 
 
 - **Fine-tuning Capabilities**: Tailor your model to better suit your needs.
 - **File API Integration**: Interact with the filesystem seamlessly with the following features:
-  - List files
-  - Upload files
-  - Delete files
-  - Retrieve file information
-  - Fetch file content
+  - [ ] List files
+  - [ ] Upload files
+  - [ ] Delete files
+  - [ ] Retrieve file information
+  - [ ] Fetch file content
 - **Fine-tuning API**: Advanced options for model manipulation including:
-  - Creating jobs
-  - Retrieving jobs
-  - Cancelling operations
-  - Listing events
-  - Obtaining result models
-  - Testing models
+  - [ ] Creating jobs
+  - [ ] Retrieving jobs
+  - [ ] Cancelling operations
+  - [ ] Listing events
+  - [ ] Obtaining result models
+  - [ ] Testing models
 - **WebUI**: A sleek user interface to interact with all these features.
 ### Unique Features:
 
