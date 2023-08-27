@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext  } from 'react';
+import useSWR, { mutate } from 'swr';
+import { ApiKeyContext } from '../contexts/ApiKeyContext'
 
 function ApiKey() {
-  const [apiKey, setApiKey] = useState('');
-  const [data, setData] = useState(null);
+  const [input, setInput] = useState('');
+  const {apiKey, setApiKey} = useContext(ApiKeyContext);
 
   const handleChange = (e) => {
-    setApiKey(e.target.value);
+    setInput(e.target.value);
   };
 
   const handleFetchData = () => {
-    fetch('YOUR_API_ENDPOINT', {
-      headers: {
-        'Authorization': `Bearer ${apiKey}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      setData(data);
-    })
-    .catch(error => {
-      console.error('There was an error fetching the data:', error);
-    });
+    setApiKey(input);
+    mutate();
   };
+
 
   return (
     <div>
@@ -32,7 +25,7 @@ function ApiKey() {
         <input
           id="apiKey"
           type="text"
-          value={apiKey}
+          value={input}
           onChange={handleChange}
         />
       </div>
@@ -40,12 +33,6 @@ function ApiKey() {
         <button onClick={handleFetchData}>Fetch Data</button>
       </div>
 
-      {data && (
-        <div>
-          <h2>Data:</h2>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-      )}
     </div>
   );
 }

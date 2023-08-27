@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import useSWR from 'swr';
+import { ApiKeyContext } from '../contexts/ApiKeyContext'
 
 export default function Files() {
-  const [fileList, setFileList] = useState([]);
+  const { apiKey, fileList, setFileList } = useContext(ApiKeyContext);
   const [selectedFile, setSelectedFile] = useState(null);
-
+  
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -13,15 +15,30 @@ export default function Files() {
 
     setSelectedFile(null);
   };
-  useEffect(() => {
-    fetch('/api/mockData')
-        .then(response => response.json())
-        .then(data => {
-            setFileList(data.files);
-        });
-}, []);
 
+  const fetcher = (url, apiKey) => fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ apiKey: apiKey })  // 在請求主體中包含API金鑰
+  }).then((res) => res.json());
   
+
+  useEffect(() => {
+    if (apiKey) {
+      fetcher('/api/fetchOpenAIFile', apiKey).then(data => {
+        if (data && data.files) {
+          setFileList(data.files);
+        } else if (data && data.error) {
+          console.error(data.error.message); // 或者你可以將此錯誤顯示給用戶
+        }
+      }).catch(error => {
+        console.error("API 請求失敗", error);
+      });
+    }
+      }, [apiKey]);
+
   return (
     <div className="bg-white p-4 border">
       <h3 className="text-lg mb-2">Files</h3>
