@@ -1,5 +1,5 @@
-import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 const useCommonsStore = create(
     persist(
@@ -27,6 +27,6 @@ const useCommonsStore = create(
             storage: createJSONStorage(() => sessionStorage)
         }
     )
-)
+);
 
-export default useCommonsStore
+export default useCommonsStore;
