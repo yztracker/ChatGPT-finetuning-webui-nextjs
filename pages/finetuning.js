@@ -1,6 +1,7 @@
 import Sidebar from '../components/Sidebar';
 import Files from '../components/Files';
 import Jobs from '../components/jobs/Jobs';
+import Dataset from '../components/Dataset';
 import Model from '../components/Model';
 
 export default function Finetuning() {
@@ -10,9 +11,10 @@ export default function Finetuning() {
       <div className="flex-1 p-4">
         <div className="flex-1 p-4">
         <div className="grid grid-cols-1 gap-4">
-        <Files />
-        <Jobs />
-        <Model/>
+          <Dataset/>
+          <Files />
+          <Jobs />
+          <Model/>
         </div>
         <div className="bg-white p-4 border mt-4">Debug Info</div>
         </div>

@@ -1,92 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
 
-  const fineTuningJobs = [
-    // ... 保留原有的fine-tuning job物件並複制4次，每次稍作修改...
-    {
-      "object": "fine_tuning.job",
-      "id": "ft-zRdUkP4QeZqeYjDcQL0wwam1",
-      "model": "davinci-002",
-      "created_at": 1692661014,
-      "finished_at": 1692661190,
-      "fine_tuned_model": "ft:davinci-002:my-org:custom_suffix:7q8mpxmy",
-      "organization_id": "org-123",
-      "result_files": [
-          "file-abc123"
-      ],
-      "status": "succeeded",
-      "validation_file": null,
-      "training_file": "file-abc123",
-      "hyperparameters": {
-          "n_epochs": 4,
-      },
-      "trained_tokens": 5768
-    },
-    {
-      "object": "fine_tuning.job",
-      "id": "ft-zRdUkP4QeZqeYjDcQL0wwam1",
-      "model": "davinci-002",
-      "created_at": 1692661014,
-      "finished_at": 1692661190,
-      "fine_tuned_model": "ft:davinci-002:my-org:custom_suffix:7q8mpxmy",
-      "organization_id": "org-123",
-      "result_files": [
-          "file-abc123"
-      ],
-      "status": "succeeded",
-      "validation_file": null,
-      "training_file": "file-abc123",
-      "hyperparameters": {
-          "n_epochs": 4,
-      },
-      "trained_tokens": 5768
-    },
-    {
-      "object": "fine_tuning.job",
-      "id": "ft-zRdUkP4QeZqeYjDcQL0wwam1",
-      "model": "davinci-002",
-      "created_at": 1692661014,
-      "finished_at": 1692661190,
-      "fine_tuned_model": "ft:davinci-002:my-org:custom_suffix:7q8mpxmy",
-      "organization_id": "org-123",
-      "result_files": [
-          "file-abc123"
-      ],
-      "status": "succeeded",
-      "validation_file": null,
-      "training_file": "file-abc123",
-      "hyperparameters": {
-          "n_epochs": 4,
-      },
-      "trained_tokens": 5768
-    },
-    {
-      "object": "fine_tuning.job",
-      "id": "ft-zRdUkP4QeZqeYjDcQL0wwam1",
-      "model": "davinci-002",
-      "created_at": 1692661014,
-      "finished_at": 1692661190,
-      "fine_tuned_model": "ft:davinci-002:my-org:custom_suffix:7q8mpxmy",
-      "organization_id": "org-123",
-      "result_files": [
-          "file-abc123"
-      ],
-      "status": "succeeded",
-      "validation_file": null,
-      "training_file": "file-abc123",
-      "hyperparameters": {
-          "n_epochs": 4,
-      },
-      "trained_tokens": 5768
-    },
-
-    // ... 其他四筆測試資料...
-  ];
+  const fetchFineTuningJobs = async () => {
+    const response = await fetch("/api/fetchAllFineTuningJobs");
+    if (response.ok) {
+      const jobs = await response.json();
+      // Do something with the jobs...
+      setJobs(jobs)
+      console.log(jobs)
+    } else {
+      console.error("Failed to fetch fine-tuning jobs.");
+    }
+  };
+  
+  useEffect(() => {
+    fetchFineTuningJobs();
+  }, []);
   
   return (
-    <div className="bg-white p-4 border">
+    <div className="bg-zinc-300 p-4  backdrop-blur-2xl rounded-xl">
       <h3 className="text-lg mb-2">Jobs</h3>
       {/* <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleCreateJob}>
         Create Fine-Tuning Job
@@ -104,7 +38,7 @@ export default function Jobs() {
                     </tr>
                 </thead>
                 <tbody>
-                    {fineTuningJobs.map(job => (
+                    {jobs.map(job => (
                         <tr key={job.id} className="hover:bg-gray-50">
                             <td className="py-2 px-4 border-b">{job.id}</td>
                             <td className="py-2 px-4 border-b">{job.model}</td>

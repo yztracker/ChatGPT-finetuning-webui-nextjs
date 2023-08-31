@@ -84,10 +84,31 @@ export default function Files() {
     }
       }, [apiKey]);
 
+    const deleteFile = async (fileId) => {
+      const response = await fetch("/api/deleteFile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileId: fileId }),
+      });
+      console.log(response)
+      if (response.ok) {
+        const result = await response.json();
+        await updateFileList();
+
+      } else {
+        console.error("Failed to delete the file.");
+      }
+    };
+      
+  const handleDeleteFile =(id) => {
+    deleteFile(id)
+  }
       
   return (
-    <div className="bg-white p-4 border">
-      <h3 className="text-lg mb-2">Files</h3>
+    <div className="bg-zinc-300 p-4  backdrop-blur-2xl rounded-xl">
+      <h3 className="text-lg mb-2">Step2. Upload Files</h3>
       <input type="file" onChange={handleFileChange} />
       <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleUpload}>
         Upload
@@ -100,6 +121,7 @@ export default function Files() {
                         <th className="py-2 px-4 border-b">ID</th>
                         <th className="py-2 px-4 border-b">Filename</th>
                         <th className="py-2 px-4 border-b">Status</th>
+                        <th className="py-2 px-4 border-b"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,6 +130,15 @@ export default function Files() {
                             <td>{file.id}</td>
                             <td>{file.filename}</td>
                             <td>{file.status}</td>
+                            <td className="py-2 px-4 border-b">
+                                <button 
+                                    onClick={() => handleDeleteFile(file.id)}
+                                    className="text-white bg-red-500 hover:bg-red-600 py-1 px-2 rounded"
+                                >
+                                    Delete File
+                                </button>
+                            </td>
+
                         </tr>
                     ))}
                 </tbody>
