@@ -1,6 +1,8 @@
 # Fine-tuning WebUI
 
 **Idea Concept:** A user-friendly platform designed for effortless fine-tuning and testing of models.
+### preview
+![image](https://github.com/yztracker/ChatGPT-finetuning-webui-nextjs/assets/39402524/60c74a10-957f-4cb3-b3a2-0fc283c88a98)
 
 ## Overview
 
