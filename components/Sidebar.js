@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import CreateJobsModel from './jobs/createJobsModel'
+import CreateJobsModel from './jobs/CreateJobsModel'
 import ApiKey from './ApiKey'
 export default function Sidebar() {
   let [isOpen, setIsOpen] = useState(false)
